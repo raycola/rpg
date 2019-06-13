@@ -1,0 +1,251 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>Pagina di pagamento @POS</title>
+	<meta name="Description" content="Pagina di pagamento" />
+	<meta name="author" content="" />
+	<meta name="copyright" content="SSB Spa" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+	<meta http-equiv="X-Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+	<meta http-equiv="X-WebKit-CSP" content="script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+	<link href="css/default/main.css" media="screen" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+	<!--
+
+
+	function turnOffButton(){
+		document.getElementById("prosegui_on").style.display="none";
+		document.getElementById("prosegui_off").style.display="inline";
+		document.getElementById("annulla_on").style.display="none";
+	}
+	function tornaEsercente() {
+		location.href="/atpos/pagamenti/main?PAGE=ANNULLA";
+	}
+
+
+function mostraInfoSSL(form){
+	cardNumber = document.forms[form].CARDNUMBER.value;
+	for (var i=0; i < document.forms[form].CARTA.length; i++)   {
+      if (document.forms[form].CARTA[i].checked)      {
+         var rad_val = document.forms[form].CARTA[i].value;
+      }
+    }
+
+
+
+	card = rad_val;
+	mese = document.forms[form].MESE.value;
+	anno = document.forms[form].ANNO.value;
+
+	var entryE = document.forms[form].ENTRYE.value;
+	if (entryE == "true") {
+		email = document.forms[form].EMAIL.value;
+	} else {
+		email = "cliente123@libero.it";
+	}
+
+
+	if (document.forms[form].cvv2.value != "")  {
+		cvv2 = document.forms[form].CVV2.value;
+	} else {
+		cvv2= "cvv2";
+	}
+
+	parametriAvvio = "/atpos/pagamenti/main?PAGE=mostraInfoSSL&infoOn=cvv2&CARDNUMBER="+cardNumber+"&CARTA="+card+"&MESE="+mese+"&ANNO="+anno+"&EMAIL="+email+"&CVV2="+cvv2;
+	location.href=parametriAvvio;
+	}
+	-->
+	</script>
+
+</head>
+
+<body>
+<form id="form1" action="/atpos/pagamenti/main?PAGE=INVIO" method="post">
+<div id="container">
+	<input type="hidden" name="TOKEN" value="2019-06-13-13.01.59.992143" />
+	<input type="hidden" name="ENTRYE" value="" />
+	<!-- header -->
+		<div id="header">
+			<img src="img/default/logossb.gif" alt="logo SSB Spa" width="75" height="26" id="logossb" /><img src="img/default/logoatpos.gif" alt="logo @POS" width="54" height="26" />
+		</div>
+		<div id="merchant">
+			<div id="merchant_area">
+				<img src="/merchant/logos/129280103000001.gif" alt="logo merchant" id="logomerchant" />
+			<div>
+			<div id="merchant_info">
+				<strong>Eni S.p.A.</strong><br />
+				n&deg; ordine: <strong>999999202875999999</strong><br />
+				Importo: <strong>23,81 &#128;</strong>
+			</div>
+		</div>
+</div>
+
+	<!-- info acquirente -->
+	<div id="buyer_area" class="top_border">
+		<div class="mandatory">Tutti i campi con asterisco* sono obbligatori  - CVV2/CVC2/4DBC obbligatorio per Visa, Mastercard, Amex, Diners</div>
+		<fieldset>
+		<legend>Informazioni sull'aquirente</legend>
+			<div id="datiaquirente">
+					<h2><label for="email">E-mail:</label></h2>&nbsp;<strong>cliente123@libero.it</strong><input name="EMAIL" type="hidden" id="email" value="cliente123@libero.it" />
+			</div>
+		</fieldset>
+	</div>
+	
+	<!-- area pagamento -->
+	<div id="payment_area">
+		<div class="paymentDataSet">
+			<fieldset>
+			<legend>Informazioni per il pagamento</legend>
+			<h2><label for="carte">Carte di credito:</label></h2><br />
+
+			<div id="carte">
+				<label for="visa"><img src="img/default/logovisa.gif" alt="Visa/Visa Electron" title="Paga con Visa/Visa Electron" /><input type="radio" autocomplete="off" name="CARTA" value="01" id="visa" tabindex="4" checked="checked" /></label>
+				<label for="mastercard"><img src="img/default/logomastercard.gif" alt="MasterCard" title="Paga con MasterCard" /><input type="radio" autocomplete="off" name="CARTA" value="02" id="mastercard" tabindex="5"  /></label>
+				
+				<label for="amex"><img src="img/default/logoamex.gif" alt="American Express" title="Paga con American Express" /><input type="radio" autocomplete="off" name="CARTA" value="06" id="amex" tabindex="7"  /></label>
+				<label for="diners"><img src="img/default/logodiners.gif" alt="Diners Club International" title="Paga con Diners Club International" /><input type="radio" autocomplete="off" name="CARTA" value="07" id="diners" tabindex="8"  /></label>
+				
+				
+				
+			</div>
+
+			<div id="daticarta" class="clear">
+				<h2><label for="number">Numero*:</label></h2>&nbsp;
+				<input name="CARDNUMBER" autocomplete="off" type="text" id="number" tabindex="11" value="" size="21" maxlength="19" class="textfield" onclick="this.value='';" />
+
+				<h2><label for="mesescad" accesskey="">Scadenza*:</label></h2>&nbsp;
+				<select name="MESE" id="mesescad" tabindex="12" autocomplete="off">
+					<option value="mm" >mm</option>
+					<option value="01" >01</option>
+					<option value="02" >02</option>
+					<option value="03" >03 </option>
+					<option value="04" >04</option>
+					<option value="05" >05</option>
+					<option value="06" >06</option>
+					<option value="07" >07</option>
+					<option value="08" >08</option>
+					<option value="09" >09</option>
+					<option value="10" >10</option>
+					<option value="11" >11</option>
+					<option value="12" >12</option>
+				</select>
+
+				<h2><label for="annoscad" accesskey=""><span class="hide">Anno scadenza*:</span></label></h2>&nbsp;
+				<select name="ANNO" id="annoscad" tabindex="13" autocomplete="off">
+					<option value="aa" >aa</option>
+						<option value="19" >2019</option>
+						<option value="20" >2020</option>
+						<option value="21" >2021</option>
+						<option value="22" >2022</option>
+						<option value="23" >2023</option>
+						<option value="24" >2024</option>
+						<option value="25" >2025</option>
+						<option value="26" >2026</option>
+						<option value="27" >2027</option>
+						<option value="28" >2028</option>
+						<option value="29" >2029</option>
+						<option value="30" >2030</option>
+						<option value="31" >2031</option>
+						<option value="32" >2032</option>
+						<option value="33" >2033</option>
+						<option value="34" >2034</option>
+						<option value="35" >2035</option>
+						<option value="36" >2036</option>
+						<option value="37" >2037</option>
+						<option value="38" >2038</option>
+						<option value="39" >2039</option>
+				</select>
+
+				<h2><label for="cvv2"><acronym title="Card Verification Value 2">CVV2</acronym>/<acronym title="Card Verification Code 2">CVC2</acronym>:</label></h2>&nbsp;
+				<input name="CVV2" autocomplete="off" type="text" id="cvv2"  value="cvv2" size="5" maxlength="4" class="textfield" tabindex="14" onclick="this.value='';" />
+			  <a href="javascript:mostraInfoSSL('form1');" tabindex="15" accesskey="i" title="Informazioni su CVV2/CVC2/4DBC"><img src="img/default/info.gif" alt="Info CVV2/CVC2/4DBC" width="20" height="20" /></a>
+			</div>
+			</fieldset>
+		</div>
+		
+		
+		
+	</div>
+
+	<div id="privacy_area">
+		<fieldset>
+		<legend>Informazioni sulla privacy</legend>
+
+		<h2><label for="leggeprivacy"><span class="hide">Testo legge tutela dati personali</span></label></h2>
+
+<textarea name="leggeprivacy" cols="100" rows="3" id="leggeprivacy" tabindex="22" readonly="readonly">
+Informativa sul trattamento dei dati personali per il servizio @POS
+
+(ex art. 13 del Regolamento generale sulla protezione dei dati personali, n. 2016/679, "Regolamento")
+
+Ai sensi dell'art. 13 del Regolamento, vengono di seguito fornite alcune informazioni riguardanti l'utilizzo dei dati personali relativi agli interessati che utilizzano il servizio di pagamento @POS, gestito da SIA S.p.A.
+
+Titolare del trattamento
+Il Titolare del trattamento ai sensi dell'art. 25 del Regolamento &egrave; SIA S.p.A. (di seguito, SIA). L'informativa qui fornita &egrave; riferita e limitata esclusivamente al trattamento dei Suoi dati personali effettuato al fine di consentire il pagamento online degli ordini effettuati attraverso il POS virtuale @POS. 
+
+Fonte dei dati personali
+I dati personali (di seguito, Dati) da Lei forniti per la fruizione del servizio @POS sono trattati nel rispetto delle disposizioni di legge pro tempore vigenti in materia di protezione di dati personali (con particolare ma non esclusivo riferimento al Regolamento), compreso il profilo della sicurezza. I Dati sono raccolti anche presso terzi ove lecito e funzionale all'erogazione del servizio @POS. 
+
+Finalit&agrave; e base giuridica del trattamento
+I Dati sono trattati per:
+
+Finalit&agrave; 	
+(i) finalit&agrave; funzionali al pagamento degli ordini e all'erogazione del servizio @POS
+(ii) per adempiere obblighi derivanti da legge, regolamenti o normativa dell'Unione Europea.
+
+Base giuridica
+(i) SIA tratta i Dati per dare esecuzione agli obblighi contrattuali.
+(ii) SIA tratta i Dati per adempiere ad un obbligo di legge.
+
+Il conferimento dei Dati &egrave; necessario per consentire la fruizione del servizio @POS; l'eventuale mancato conferimento comporter&agrave; l'impossibilit&agrave; di usufruire del servizio stesso.
+
+Tempo di conservazione dei Dati 
+I Dati sono trattati per il periodo strettamente necessario al perseguimento delle finalit&agrave; indicate ai punti (i), (ii) che precedono, tenuto conto degli obblighi di legge e comunque per il periodo necessario all'accertamento o alla difesa di un diritto in sede giudiziaria.						
+
+Modalit&agrave; di trattamento dei dati
+Il trattamento dei Dati viene effettuato con mezzi informatici, manuali e telematici secondo procedure e logiche strettamente correlate alle finalit&agrave; di trattamento specificate nella presente informativa, in conformit&agrave; alle disposizioni vigenti in tema di sicurezza. 						
+
+Categorie di soggetti ai quali i dati potranno essere comunicati
+I Dati sono accessibili all'interno dell'organizzazione societaria del Titolare al personale autorizzato al trattamento dei dati personali ai sensi dell'art. 29 del Regolamento e ai Responsabili del trattamento dallo stesso eventualmente nominati. I Dati potranno essere comunicati a soggetti esterni all'organizzazione di SIA che tratteranno tali dati quali Titolari o Responsabili del trattamento e a chiunque sia legittimo destinatario di comunicazioni previste da norme di legge o regolamentari.
+I Dati non sono oggetto di diffusione.						
+
+Diritti dell'interessato
+Lei potr&agrave; in qualsiasi momento far valere i diritti di cui agli artt.12-23 del Regolamento fra i quali, il diritto di ricevere una adeguata informativa sul trattamento dei propri dati personali, il diritto di accesso, il diritto di rettifica, il diritto all'oblio, il diritto alla limitazione del trattamento, il diritto alla portabilit&agrave;, il diritto di opposizione e il diritto di non subire decisioni automatizzate. Lei ha infine il diritto di proporre un reclamo alla competente Autorit&agrave; di Controllo.						
+
+Per l'esercizio dei diritti di cui sopra e per richiedere altre eventuali informazioni potete rivolgervi al Responsabile della protezione dei dati personali di SIA al seguente indirizzo di posta elettronica: dpo@sia.eu.
+
+Data di ultima modifica: 19/09/2018
+</textarea>
+ 		<div id="datiprivacy">
+			<label for="privacysi"><input type="radio" name="accetto" value="Y" id="privacysi" tabindex="20" checked="checked" />accetto</label><br />
+			<label for="privacyno"><input type="radio" name="accetto" value="N" id="privacyno" tabindex="21" />non accetto</label>
+		</div>
+		</fieldset>
+	</div>
+
+	<div id="footer">
+		<table border="0" style="width: 100%;" summary="tabella che contiene la barra di navigazione">
+			<tr style="height: 25px;">
+				<td style="text-align: left; width: 210px; padding-left: 10px;">
+					<img src="img/default/logovbv.png" alt="Logo Verified by VISA" width="57" height="33" />&nbsp;
+					<img src="img/default/logosecurecode.gif" alt="Logo Mastercard SecureCode" width="59" height="33" />&nbsp;
+					<img src="img/default/logosafekey.gif" alt="Logo SafeKey" width="57" height="33" />
+					<img src="img/default/logoProtectBuy.jpg" alt="Logo ProtectBuy" width="57" height="33" />
+				</td>
+				<td style="text-align: center;"><div id="annulla_on"><input type="button" class="bottone_blu" title="TORNA AL PORTALE ENI" value="TORNA AL PORTALE ENI" accesskey="s" tabindex="18" onclick="tornaEsercente();" /></div></td>
+				<td style="text-align: center"><div id="prosegui_on"><input style="margin-right: 50px;" name="btn_conferma" type="submit" id="conferma" accesskey="c" value="CONFERMA" title="Conferma i dati e procedi con il pagamento" class="bottone_blu mostraPulsante" onclick="turnOffButton();" tabindex="19" /></div><div id="prosegui_off"><input style="margin-right: 50px;" name="btn_fake" type="button" value="PAGAMENTO IN CORSO..." title="PAGAMENTO IN CORSO..." class="bottone_grigio mostraPulsante" /></div></td>
+			</tr>
+		</table>
+  	</div>
+
+	<div id="accessibilita">
+		<h1><a href="/atpos/pagamenti/main?PAGE=mostraInfoSSL&infoOn=accessibilita" title="Info sull'accessibilit&agrave; del sito" accesskey="a" tabindex="30">Accessibilit&agrave;</a></h1>
+	</div>
+</div>
+</div>
+</form>
+</body>
+</html>
